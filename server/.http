@@ -1,0 +1,34 @@
+###
+GET http://localhost:5000/api/users
+
+###
+GET http://localhost:5000/api/users/64ae30de38276b717613598b
+
+###
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+	"firstName": "Jonas"
+}
+
+###
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+	"firstName": "Jonas",
+	"lastName": "Jonaitis",
+	"email": "jonasATjonaitis.lt"
+}
+
+###
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+	"firstName": "Jonas",
+	"lastName": "Jonaitis",
+	"email": "jonas@jonaitis.lt",
+	"age": 19
+}
