@@ -7,6 +7,7 @@ import TextField from './components/atoms-md/TextField';
 import {
   fieldFormatters,
   getFieldsFromUserDataItem,
+  userSearchFunction,
 } from './components/templates/UsersList/UsersContext.ts';
 import { IUser } from './shared/api/types.ts';
 import Table from './components/molecules/Table/Table.tsx';
@@ -19,35 +20,29 @@ interface IDataTypeContext {
   getFieldsFunction: <dataEntryType>(
     datum?: dataEntryType
   ) => ITableField<any>[];
+  searchFunction: <dataEntryType>(
+    datum: dataEntryType,
+    searchString: string
+  ) => boolean;
 }
 
 export const DataTypeContext = createContext<IDataTypeContext>({
   fieldFormatters: {},
   getFieldsFunction: () => [],
+  searchFunction: () => false,
 });
 
 const UsersContext: IDataTypeContext = {
   fieldFormatters: fieldFormatters,
   getFieldsFunction: (datum) => getFieldsFromUserDataItem(datum as IUser),
+  searchFunction: (datum, searchString) =>
+    userSearchFunction(datum as IUser, searchString),
 };
 
 function App() {
-  // const dummyData: IUser[] = [
-  //   {
-  //     id: 'u1',
-  //     firstName: 'Jonas',
-  //     lastName: 'Jonaitis',
-  //     email: 'jonas@jonaitis.lt',
-  //     age: 19,
-  //   },
-  // ];
-
   return (
     <div>
       <DataTypeContext.Provider value={UsersContext}>
-        <div>
-          <Button variant='elevated'>Pridėti naują</Button>
-        </div>
         <UsersList></UsersList>
       </DataTypeContext.Provider>
     </div>

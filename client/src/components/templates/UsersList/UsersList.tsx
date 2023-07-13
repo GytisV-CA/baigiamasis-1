@@ -1,24 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import Table from '../../molecules/Table';
+import DataDrivenTable from '../../organisms/DataDrivenTable';
 import { API } from '../../../shared/api';
+import { IUser } from '../../../shared/api/types';
 
 export default function UsersList() {
-  console.log('rendering UsersList');
-
-  // async function getUsers(callback: (result: IUser[]) => void) {
-  //   const data = await API.getUsers();
-  //   callback(data);
-  // }
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['users'],
-    queryFn: () => API.getUsers(),
-    staleTime: 10000,
-  });
-
   return (
-    <div>
-      <Table data={data ?? []}></Table>
-    </div>
+    <DataDrivenTable<IUser>
+      queryKey={['users']}
+      queryFn={() => API.getUsers()}
+      itemsPerPage={10}
+    ></DataDrivenTable>
   );
 }

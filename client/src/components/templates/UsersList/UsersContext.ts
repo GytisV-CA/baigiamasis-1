@@ -38,3 +38,15 @@ export const getFieldsFromUserDataItem = (
     },
   ];
 };
+
+export const userSearchFunction = (
+  datum: IUser,
+  searchString: string
+): boolean => {
+  return (
+    (datum.firstName + ' ' + datum.lastName)
+      .toLowerCase()
+      .includes(searchString.toLowerCase()) ||
+    datum.email.toLowerCase().includes(searchString.toLowerCase())
+  );
+};
