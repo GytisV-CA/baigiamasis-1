@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(express.json());
-app.use(cors()); //FIXME: allow origin selectively???
+app.use(cors()); //allow origin selectively? (should be external url of hosted front-end)
 
 // Starting server
 const startServer = () =>

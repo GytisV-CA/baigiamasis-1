@@ -23,9 +23,37 @@ const userSchema = new Schema(
       type: Number,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    statics: {
+      defaultFieldsArray() {
+        return ['firstName', 'lastName', 'email', 'age'];
+      },
+    },
+    query: {
+      defaultFieldsQuery() {
+        return this.select(this.defaultFieldsArray());
+      },
+    },
+    //GV: the desired effect of this all is to present the built-in id getter instead of _id
+    id: true,
+    toObject: {
+      getters: true,
+      transform(doc, ret, options) {
+        delete ret._id;
+        return ret;
+      },
+    },
+    toJSON: {
+      getters: true,
+      transform(doc, ret, options) {
+        delete ret._id;
+        return ret;
+      },
+    },
+  }
 );
 
-const User = model('user', userSchema);
+const UserModel = model('user', userSchema);
 
-export default User;
+export default UserModel;

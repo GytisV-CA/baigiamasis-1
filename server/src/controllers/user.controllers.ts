@@ -1,9 +1,9 @@
-import User from '../models/user.model.js';
+import UserModel from '../models/user.model.js';
 import { Request, Response } from 'express';
 
 export const getUsers = async (_req: Request, res: Response) => {
   try {
-    const users = await User.find();
+    const users = await UserModel.find().select(UserModel.defaultFieldsArray());
 
     res.json(users);
   } catch (error) {
@@ -14,7 +14,7 @@ export const getUsers = async (_req: Request, res: Response) => {
 export const getUser = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const user = await User.findById(id);
+    const user = await UserModel.findById(id);
 
     if (!user) {
       res.status(404).json({ message: 'User with given id not found' });
@@ -29,7 +29,7 @@ export const getUser = async (req: Request, res: Response) => {
 export const addUser = async (req: Request, res: Response) => {
   const data = req.body;
   try {
-    const user = new User(data);
+    const user = new UserModel(data);
 
     const savedUser = await user.save();
 
@@ -44,7 +44,7 @@ export const updateUser = async (req: Request, res: Response) => {
   const data = req.body;
 
   try {
-    const updatedUser = await User.findByIdAndUpdate(id, data);
+    const updatedUser = await UserModel.findByIdAndUpdate(id, data);
 
     if (updatedUser) {
       res.json(updatedUser);
@@ -60,7 +60,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   const id = req.params.id;
 
   try {
-    const deletedUser = await User.findByIdAndDelete(id);
+    const deletedUser = await UserModel.findByIdAndDelete(id);
 
     if (deletedUser) {
       res.status(204).json();
