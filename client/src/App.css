@@ -1,4 +1,15 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+
+button.selected {
+  background-color: peachpuff;
 }
