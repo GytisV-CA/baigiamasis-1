@@ -45,7 +45,9 @@ export default function Form<dataType extends IIdentifiableItem>({
           />
         );
       })}
-      <Button title={verb} icon='done' variant='filled' type='submit' />
+      <div className='action-bar'>
+        <Button title={verb} icon='done' variant='filled' type='submit' />
+      </div>
     </form>
   );
 }

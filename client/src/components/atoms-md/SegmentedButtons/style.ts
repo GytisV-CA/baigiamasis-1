@@ -35,6 +35,10 @@ export const SegmentedButtonContainer = styled.div`
       border-radius: 0 20px 20px 0;
     }
 
+    &:only-child {
+      border-radius: 20px;
+    }
+
     &:not(:first-child) {
       border-left-style: none;
     }

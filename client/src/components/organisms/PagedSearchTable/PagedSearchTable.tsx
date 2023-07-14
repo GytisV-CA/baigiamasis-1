@@ -6,6 +6,7 @@ import Button from '../../atoms-md/Button';
 import { IIdentifiableItem, IUpdatePayload } from '../../../shared/types';
 import TextField from '../../atoms-md/TextField';
 import { StyledTopBar } from './style';
+import Search from '../../atoms-md/Search';
 
 interface IPagedSearchTableProps<dataType extends IIdentifiableItem> {
   data: dataType[];
@@ -52,10 +53,8 @@ export default function PagedSearchTable<dataType extends IIdentifiableItem>({
   return (
     <div>
       <StyledTopBar>
-        <TextField
-          variant='filled'
-          type='text'
-          labelText='Paieška...'
+        <Search
+          supportingText='Paieška...'
           value={searchValue}
           onChange={searchHandler}
         />

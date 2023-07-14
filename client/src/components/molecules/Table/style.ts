@@ -6,23 +6,31 @@ export const StyledTable = styled.div<{
   $rowCount?: number;
   $colCount?: number;
 }>`
-  display: grid;
   width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+
   margin-bottom: 8px;
 
-  grid-template-rows: ${(props) =>
-    props.$rowCount
-      ? `repeat(${props.$rowCount}, minmax(56px, auto))`
-      : 'initial'};
+  @media screen and (min-width: 768px) {
+    display: grid;
 
-  grid-template-columns: ${(props) =>
-    props.$colCount
-      ? `repeat(${props.$colCount - 1}, auto) min-content`
-      : 'initial'};
+    grid-template-rows: ${(props) =>
+      props.$rowCount
+        ? `repeat(${props.$rowCount}, minmax(56px, auto))`
+        : 'initial'};
+
+    grid-template-columns: ${(props) =>
+      props.$colCount
+        ? `repeat(${props.$colCount - 1}, auto) min-content`
+        : 'initial'};
+  }
 `;
 
 export const StyledTableRowWrapper = styled.div<{ $highlight?: boolean }>`
-  display: contents;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
 
   form {
     display: contents;
@@ -38,13 +46,20 @@ export const StyledTableRowWrapper = styled.div<{ $highlight?: boolean }>`
       );
     }
   }
+
+  @media screen and (min-width: 768px) {
+    display: contents;
+    position: initial;
+  }
 `;
 
 const StyledTableBlock = styled.div<{ $column: number }>`
-  grid-column: ${(props) => props.$column};
-
   padding-left: 16px;
   padding-right: 8px;
+
+  @media screen and (min-width: 768px) {
+    grid-column: ${(props) => props.$column};
+  }
 `;
 
 export const StyledTableCell = styled(StyledTableBlock)<{
@@ -52,12 +67,23 @@ export const StyledTableCell = styled(StyledTableBlock)<{
   $row: number;
   $highlight?: boolean;
 }>`
-  grid-row: ${(props) => props.$row};
-
   display: flex;
   align-items: center;
 
-  min-height: 56px;
+  min-height: 40px;
+
+  .md-text-field {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-row: ${(props) => props.$row};
+    min-height: 56px;
+  }
 `;
 
 export const StyledTableRowUnderlay = styled.div<{
@@ -65,8 +91,18 @@ export const StyledTableRowUnderlay = styled.div<{
   $columnSpan: number;
   $highlight?: boolean;
 }>`
-  grid-row: ${(props) => props.$row};
-  grid-column: 1 / span ${(props) => props.$columnSpan};
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  @media screen and (min-width: 768px) {
+    position: initial;
+    grid-row: ${(props) => props.$row};
+    grid-column: 1 / span ${(props) => props.$columnSpan};
+  }
 `;
 
 export const StyledTableRowUnderlay1 = styled(StyledTableRowUnderlay)<{
@@ -95,6 +131,8 @@ export const StyledButtonBox = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
+
+  min-height: 48px;
 `;
 
 export const StyledPromptBox = styled.div`
@@ -109,20 +147,24 @@ export const StyledTableColHeader = styled(StyledTableBlock)<{
   $column: number;
   $align?: 'left' | 'center' | 'right';
 }>`
-  grid-row: 1;
-  grid-column: ${(props) => props.$column};
+  display: none;
 
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: ${(props) =>
-    props.$align === 'right'
-      ? 'end'
-      : props.$align === 'center'
-      ? 'center'
-      : 'start'};
+  @media screen and (min-width: 768px) {
+    grid-row: 1;
+    grid-column: ${(props) => props.$column};
 
-  align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: ${(props) =>
+      props.$align === 'right'
+        ? 'end'
+        : props.$align === 'center'
+        ? 'center'
+        : 'start'};
 
-  color: var(--md-sys-color-on-surface-variant);
-  font-weight: 600;
+    align-items: center;
+
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 600;
+  }
 `;

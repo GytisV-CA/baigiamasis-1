@@ -36,7 +36,7 @@ export default function TextField({
   const inputElementRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <StyledInputContainer $variant={variant}>
+    <StyledInputContainer className='md-text-field' $variant={variant}>
       {variant === 'outlined' ? (
         <>
           <StyledInputOutlined
