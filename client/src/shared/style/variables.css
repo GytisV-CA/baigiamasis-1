@@ -7,6 +7,7 @@
   --shadow-blur-elevation-1: 2px;
   --shadow-blur-elevation-2: 6px;
   --shadow-blur-elevation-3: 8px;
+  --shadow-blur-elevation-4: 12px;
 
   --border-radius-shape-extra-small: 4px;
   --border-radius-shape-extra-small-top: 4px 4px 0 0;
@@ -15,10 +16,13 @@
   --border-radius-shape-large: 16px;
 
   --color-on-surface-transp-04: #191c1d0a;
+  --color-on-surface-transp-08: #191c1d14;
   --color-on-surface-transp-12: #191c1d1e;
   --color-on-surface-transp-38: #191c1d60;
 
   --color-primary-transp-08: #00668414;
+  --color-on-secondary-container-transp-08: #081e2714;
+  --color-on-secondary-container-transp-12: #081e271e;
 
   --color-shadow-transparent: #0006;
 }
@@ -26,11 +30,18 @@
 @media screen and (prefers-color-scheme: dark) {
   body {
     --color-on-surface-transp-04: #c4c7c70a;
+    --color-on-surface-transp-08: #191c1d14;
     --color-on-surface-transp-12: #c4c7c71e;
     --color-on-surface-transp-38: #c4c7c760;
 
     --color-primary-transp-08: #66d3ff14;
+    --color-on-secondary-container-transp-08: #d0e6f214;
+    --color-on-secondary-container-transp-12: #d0e6f21e;
 
     --color-shadow-transparent: #0006;
   }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40;
 }

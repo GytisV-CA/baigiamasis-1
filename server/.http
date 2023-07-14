@@ -32,3 +32,36 @@ Content-Type: application/json
 	"email": "jonas@jonaitis.lt",
 	"age": 19
 }
+
+###
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+	"firstname": "Jonas",
+	"lastname": "Jonaitis",
+	"email": "jonas@jonaitis.lt",
+	"age": 19
+}
+
+###
+PUT http://localhost:5000/api/users/64ae30de38276b717613598b
+Content-Type: application/json
+
+{
+	"firstName": "Jonas",
+	"lastName": "Jonaitis",
+	"email": "jonas@jonaitis.lt",
+	"age": 39
+}
+
+###
+PUT http://localhost:5000/api/users/64ae30de38276b717613598b
+Content-Type: application/json
+
+{
+	"firstname": "Jonass",
+	"lastname": "Jonaitiss",
+	"email": "jonass@jonaitiss.lt",
+	"age": 19
+}

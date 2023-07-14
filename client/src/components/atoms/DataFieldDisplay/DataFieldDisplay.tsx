@@ -1,5 +1,5 @@
 import { IDisplayValueFormatter } from '../../../shared/types';
-import { StyledDisplayField } from './styles';
+import { StyledDisplayField } from './style';
 
 interface IDataFieldDisplayProps<valueType> {
   value: valueType;

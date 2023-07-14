@@ -1,23 +1,38 @@
 import styled from 'styled-components';
 
+// https://m3.material.io/components/buttons/specs
+
 export type StyledButtonVariants =
   | 'elevated'
   | 'filled'
   | 'tonal'
   | 'outlined'
-  | 'text';
+  | 'text'
+  | 'fab';
 
 export const StyledButton = styled.button<{
   $variant: StyledButtonVariants;
+  $iconOnly?: boolean;
 }>`
   box-sizing: border-box;
   min-height: 40px;
   min-width: 40px;
   border-radius: 20px;
   border-style: none;
-  padding: 8px 24px;
   gap: 8px;
+  padding: ${(props) => (props.$iconOnly ? '4px' : '8px 24px')};
+  font-size: ${(props) =>
+    props.$iconOnly ? '24px' : 'var(--md-sys-typescale-label-large-font-size)'};
+  line-height: ${(props) =>
+    props.$iconOnly ? '24px' : 'var(--md-sys-typescale-label-large-height)'};
+  max-height: ${(props) => (props.$iconOnly ? '40px' : 'initial')};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   transition: background 100ms, box-shadow 100ms;
+  cursor: pointer;
 `;
 
 export const StyledButtonElevated = styled(StyledButton)`
@@ -45,6 +60,42 @@ export const StyledButtonElevated = styled(StyledButton)`
       in srgb,
       var(--md-sys-color-primary) var(--md-sys-state-focus-state-layer-opacity),
       var(--md-sys-color-surface-container-low)
+    );
+  }
+`;
+
+export const StyledButtonFAB = styled(StyledButton)`
+  min-height: 56px;
+  min-width: 56px;
+  border-radius: 16px;
+  font-size: 36px;
+  padding: ${(props) => (props.$iconOnly ? '8px' : '16px')};
+  max-height: ${(props) => (props.$iconOnly ? '56px' : 'initial')};
+
+  box-shadow: 0 1px var(--shadow-blur-elevation-3) 0
+    var(--color-shadow-transparent);
+
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-primary);
+
+  &:hover {
+    box-shadow: 0 1px var(--shadow-blur-elevation-4) 0
+      var(--color-shadow-transparent);
+
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-primary) var(--md-sys-state-hover-state-layer-opacity),
+      var(--md-sys-color-surface)
+    );
+  }
+
+  &:focus,
+  &:active {
+    outline: none;
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-primary) var(--md-sys-state-focus-state-layer-opacity),
+      var(--md-sys-color-surface)
     );
   }
 `;

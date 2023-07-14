@@ -1,15 +1,16 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0 16px;
 
   font-family: 'Roboto', sans-serif;
+}
+
+#modal-root {
+  display: contents;
 }
 
 body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
-}
-
-button.selected {
-  background-color: peachpuff;
 }

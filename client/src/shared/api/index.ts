@@ -1,12 +1,14 @@
 import axios from 'axios';
-import { IUser } from './types';
+import { IUser, IUserData } from './types';
 
 class Api_instance {
   public httpClient;
 
   constructor() {
+    const envURL = import.meta.env.VITE_API_URI as string;
+
     this.httpClient = axios.create({
-      baseURL: 'http://localhost:5000/api',
+      baseURL: envURL ?? 'http://localhost:6000/api',
     });
 
     this.httpClient.interceptors.response.use(
@@ -20,6 +22,21 @@ class Api_instance {
       'users',
       limit ? { params: { _limit: limit } } : {}
     );
+  }
+
+  public async addUser(userData: IUserData) {
+    const response = await this.httpClient.post('users', userData);
+    return response;
+  }
+
+  public async updateUser(id: IUser['id'], userData: IUserData) {
+    const response = await this.httpClient.put(`users/${id}`, userData);
+    return response;
+  }
+
+  public async deleteUser(id: IUser['id']) {
+    const response = await this.httpClient.delete(`users/${id}`);
+    return response;
   }
 }
 

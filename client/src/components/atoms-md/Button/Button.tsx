@@ -7,23 +7,39 @@ import {
   StyledButtonTonal,
   StyledButtonOutlined,
   StyledButtonText,
+  StyledButtonFAB,
 } from './style';
 
 interface IButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
   variant: StyledButtonVariants;
   action?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  title?: string | undefined;
+  icon?: string | undefined;
 }
 
-export function Button({ children, variant = 'filled', action }: IButtonProps) {
+export function Button({
+  children,
+  variant = 'filled',
+  action,
+  type = 'button',
+  title,
+  icon,
+}: IButtonProps) {
+  const iconOnly: boolean = Boolean(icon) && !children;
+
   switch (variant) {
     case 'elevated':
       return (
         <StyledButtonElevated
           className='label-large'
-          $variant={variant}
+          type={type}
+          title={title}
           onClick={action}
+          $iconOnly={iconOnly}
         >
+          <span className='material-symbols-outlined'>{icon}</span>
           {children}
         </StyledButtonElevated>
       );
@@ -31,9 +47,12 @@ export function Button({ children, variant = 'filled', action }: IButtonProps) {
       return (
         <StyledButtonFilled
           className='label-large'
-          $variant={variant}
+          type={type}
+          title={title}
           onClick={action}
+          $iconOnly={iconOnly}
         >
+          <span className='material-symbols-outlined'>{icon}</span>
           {children}
         </StyledButtonFilled>
       );
@@ -41,9 +60,12 @@ export function Button({ children, variant = 'filled', action }: IButtonProps) {
       return (
         <StyledButtonTonal
           className='label-large'
-          $variant={variant}
+          type={type}
+          title={title}
           onClick={action}
+          $iconOnly={iconOnly}
         >
+          <span className='material-symbols-outlined'>{icon}</span>
           {children}
         </StyledButtonTonal>
       );
@@ -51,9 +73,12 @@ export function Button({ children, variant = 'filled', action }: IButtonProps) {
       return (
         <StyledButtonOutlined
           className='label-large'
-          $variant={variant}
+          type={type}
+          title={title}
           onClick={action}
+          $iconOnly={iconOnly}
         >
+          <span className='material-symbols-outlined'>{icon}</span>
           {children}
         </StyledButtonOutlined>
       );
@@ -61,19 +86,39 @@ export function Button({ children, variant = 'filled', action }: IButtonProps) {
       return (
         <StyledButtonText
           className='label-large'
-          $variant={variant}
+          type={type}
+          title={title}
           onClick={action}
+          $iconOnly={iconOnly}
         >
+          <span className='material-symbols-outlined'>{icon}</span>
           {children}
         </StyledButtonText>
+      );
+    case 'fab':
+      return (
+        <StyledButtonFAB
+          className='label-large'
+          type={type}
+          title={title}
+          onClick={action}
+          $iconOnly={iconOnly}
+        >
+          <span className='material-symbols-outlined'>{icon}</span>
+          {children}
+        </StyledButtonFAB>
       );
     default:
       return (
         <StyledButton
           className='label-large'
           $variant={variant}
+          type={type}
+          title={title}
           onClick={action}
+          $iconOnly={iconOnly}
         >
+          <span className='material-symbols-outlined'>{icon}</span>
           {children}
         </StyledButton>
       );

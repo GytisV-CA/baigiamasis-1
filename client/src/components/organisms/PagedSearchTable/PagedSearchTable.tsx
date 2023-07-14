@@ -1,24 +1,31 @@
-import { ReactNode, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataTypeContext } from '../../../App';
 import Table from '../../molecules/Table';
 import Pagination from '../../molecules/Pagination';
+import Button from '../../atoms-md/Button';
+import { IIdentifiableItem, IUpdatePayload } from '../../../shared/types';
+import TextField from '../../atoms-md/TextField';
+import { StyledTopBar } from './style';
 
-export interface ISearchableItem {
-  id: string;
-}
-
-interface IPagedSearchTableProps<dataType extends ISearchableItem> {
+interface IPagedSearchTableProps<dataType extends IIdentifiableItem> {
   data: dataType[];
   itemsPerPage?: number;
-  injectedComponent?: ReactNode;
-  rowExtraComponent?: () => ReactNode;
+  isEditable?: boolean;
+  onCreate?: () => void;
+  editCallback?: (
+    id: IUpdatePayload<dataType>['id'],
+    fieldsData: IUpdatePayload<dataType>['fieldsData']
+  ) => void;
+  deleteCallback?: (id: dataType['id']) => void;
 }
 
-export default function PagedSearchTable<dataType extends ISearchableItem>({
+export default function PagedSearchTable<dataType extends IIdentifiableItem>({
   data,
   itemsPerPage = 10,
-  injectedComponent,
-  rowExtraComponent,
+  isEditable = false,
+  onCreate,
+  editCallback,
+  deleteCallback,
 }: IPagedSearchTableProps<dataType>) {
   const { searchFunction } = useContext(DataTypeContext);
 
@@ -26,13 +33,11 @@ export default function PagedSearchTable<dataType extends ISearchableItem>({
   const [searchValue, setSearchValue] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
-
   // searchValue state changes on user input; this change triggers effect which sets displayData state
   useEffect(() => {
-    console.log('useEffect Search');
+    // console.log('useEffect Search');
+
+    setCurrentPage(1);
 
     setDisplayData(
       searchValue
@@ -41,17 +46,28 @@ export default function PagedSearchTable<dataType extends ISearchableItem>({
     );
   }, [searchValue, data, searchFunction]);
 
+  const searchHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
   return (
     <div>
-      <div>
-        <input
+      <StyledTopBar>
+        <TextField
+          variant='filled'
           type='text'
+          labelText='Paieška...'
           value={searchValue}
           onChange={searchHandler}
-          placeholder='Paieška...'
         />
-        {injectedComponent && injectedComponent}
-      </div>
+        {isEditable && (
+          <Button
+            title='Pridėti naują'
+            variant='fab'
+            icon='add'
+            action={onCreate && onCreate}
+          />
+        )}
+      </StyledTopBar>
       <Table<dataType>
         displayData={
           displayData
@@ -61,7 +77,10 @@ export default function PagedSearchTable<dataType extends ISearchableItem>({
               )
             : []
         }
-        rowExtraComponent={rowExtraComponent}
+        isEditable={isEditable}
+        editCallback={editCallback}
+        deleteCallback={deleteCallback}
+        rowCount={itemsPerPage}
       ></Table>
       <Pagination
         setCurrentPage={setCurrentPage}

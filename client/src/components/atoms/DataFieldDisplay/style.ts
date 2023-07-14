@@ -13,4 +13,7 @@ export const StyledDisplayField = styled.div<{
       : 'start'};
 
   white-space: nowrap;
+
+  height: 100%;
+  align-items: center;
 `;

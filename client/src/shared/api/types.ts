@@ -5,3 +5,5 @@ export interface IUser {
   email: string;
   age?: number;
 }
+
+export type IUserData = Omit<IUser, 'id'>;
