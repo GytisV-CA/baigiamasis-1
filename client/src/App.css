@@ -1,8 +1,4 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 16px;
-
   font-family: 'Roboto', sans-serif;
 }
 
@@ -13,4 +9,19 @@
 body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+main {
+  min-width: min(100%, 1280px);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
 }

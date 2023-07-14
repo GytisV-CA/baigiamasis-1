@@ -14,6 +14,7 @@ import {
 } from './components/templates/UsersList/UsersContext.ts';
 import { IUser } from './shared/api/types.ts';
 import UsersList from './components/templates/UsersList/UsersList.tsx';
+import Footer from './components/templates/Footer/Footer.tsx';
 
 //using context to pass through props to deeply nested components
 
@@ -48,10 +49,13 @@ const UsersContext: IDataTypeContext = {
 
 function App() {
   return (
-    <div>
-      <DataTypeContext.Provider value={UsersContext}>
-        <UsersList></UsersList>
-      </DataTypeContext.Provider>
+    <div className='page-wrapper'>
+      <main>
+        <DataTypeContext.Provider value={UsersContext}>
+          <UsersList></UsersList>
+        </DataTypeContext.Provider>
+      </main>
+      <Footer>{`© ${new Date().getFullYear()} Visos teisės saugomos`}</Footer>
     </div>
   );
 }
